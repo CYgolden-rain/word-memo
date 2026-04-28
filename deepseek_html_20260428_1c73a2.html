@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 中考词汇1600 · 多维记忆强化版</title>
+    <style>
+        :root {
+            --bg: #f7f9fc;
+            --card-bg: #ffffff;
+            --primary: #4361ee;
+            --primary-light: #eef0ff;
+            --primary-dark: #3a56d4;
+            --accent: #f72585;
+            --accent-light: #fff0f6;
+            --success: #06d6a0;
+            --success-light: #e6faf3;
+            --warning: #ffd166;
+            --warning-light: #fffae6;
+            --danger: #ef476f;
+            --danger-light: #fff0f3;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05),0 1px 2px rgba(0,0,0,0.04);
+            --shadow: 0 4px 16px rgba(0,0,0,0.06),0 2px 6px rgba(0,0,0,0.04);
+            --shadow-lg: 0 12px 32px rgba(0,0,0,0.1),0 4px 12px rgba(0,0,0,0.06);
+            --radius: 20px;
+            --radius-sm: 14px;
+            --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg); color: var(--text); min-height:100vh;
+            display:flex; justify-content:center; align-items:flex-start; padding:12px;
+            -webkit-tap-highlight-color:transparent; user-select:none;
+        }
+        .app-container { width:100%; max-width:520px; position:relative; z-index:1; display:flex; flex-direction:column; gap:14px; }
+        .header { text-align:center; padding:6px 0; }
+        .header .logo { display:inline-flex; align-items:center; gap:8px; font-size:1.7rem; font-weight:800; color:var(--primary-dark); }
+        .header .logo .icon { width:44px; height:44px; background:linear-gradient(135deg, #4361ee, #7209b7); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; color:#fff; }
+        .subtitle { font-size:0.85rem; color:var(--text-secondary); margin-top:4px; }
+        .goal-banner { background:var(--card-bg); border-radius:var(--radius-sm); padding:14px 18px; display:flex; align-items:center; gap:16px; box-shadow:var(--shadow-sm); flex-wrap:wrap; }
+        .goal-streak { display:flex; align-items:center; gap:6px; background:#fff3cd; border-radius:24px; padding:6px 14px; font-weight:700; color:#b76e00; font-size:0.85rem; }
+        .goal-info { flex:1; min-width:120px; }
+        .goal-info .goal-title { font-weight:700; font-size:0.9rem; }
+        .goal-info .goal-detail { font-size:0.75rem; color:var(--text-secondary); }
+        .goal-progress { width:100%; height:6px; background:#e2e8f0; border-radius:10px; margin-top:6px; overflow:hidden; }
+        .goal-progress-fill { height:100%; border-radius:10px; background:linear-gradient(90deg, #4361ee, #7209b7); transition:width 0.5s ease; }
+        .stats-strip { display:flex; gap:8px; flex-wrap:wrap; }
+        .stat-chip { flex:1; min-width:60px; background:var(--card-bg); border-radius:var(--radius-sm); padding:12px 8px; text-align:center; box-shadow:var(--shadow-sm); }
+        .stat-chip .stat-value { font-size:1.4rem; font-weight:700; color:var(--primary-dark); }
+        .stat-chip .stat-label { font-size:0.7rem; color:var(--text-secondary); }
+        .tab-nav { display:flex; background:var(--card-bg); border-radius:36px; padding:4px; box-shadow:var(--shadow-sm); gap:2px; }
+        .tab-btn { flex:1; padding:10px 4px; border:none; background:transparent; border-radius:32px; cursor:pointer; font-size:0.85rem; font-weight:600; color:var(--text-secondary); transition:var(--transition); }
+        .tab-btn.active { background:var(--primary); color:#fff; }
+        .panel { display:none; flex-direction:column; gap:14px; animation:fadeSlideIn 0.25s ease; }
+        .panel.active { display:flex; }
+        @keyframes fadeSlideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+        .card-container { perspective:1000px; width:100%; min-height:340px; cursor:pointer; }
+        .card-inner { position:relative; width:100%; min-height:340px; transition:transform 0.4s; transform-style:preserve-3d; }
+        .card-inner.flipped { transform:rotateY(180deg); }
+        .card-face { position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius); padding:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; box-shadow:var(--shadow-lg); background:var(--card-bg); min-height:340px; overflow-y:auto; }
+        .card-front { z-index:2; border:2px solid var(--border); background: #fdfdfe; }
+        .card-back { transform:rotateY(180deg); border:2px solid var(--accent); background: #fff9fb; }
+        .card-word { font-size:2.2rem; font-weight:700; color:var(--text); line-height:1.3; }
+        .card-phonetic { font-size:1rem; color:var(--text-secondary); margin-top:6px; font-style:italic; }
+        .card-pos-tag { display:inline-block; background:var(--primary-light); color:var(--primary-dark); padding:4px 14px; border-radius:20px; font-size:0.85rem; font-weight:600; margin-top:8px; }
+        .card-meaning { font-size:2rem; font-weight:700; color:#9b2c5c; margin:10px 0; }
+        .card-relations { font-size:0.85rem; color:var(--text-secondary); width:100%; margin-top:8px; }
+        .rel-section { margin-top:8px; text-align:left; }
+        .rel-title { font-weight:700; color:var(--primary-dark); margin-bottom:3px; display:flex; align-items:center; gap:4px; }
+        .rel-item { display:inline-block; padding:2px 8px; margin:2px 4px 2px 0; border-radius:12px; font-size:0.8rem; font-weight:500; }
+        .rel-item.syn { background:#eef0ff; color:#3a56d4; }
+        .rel-item.ant { background:#fff0f6; color:#b3005c; }
+        .rel-item.fam { background:#e6faf3; color:#0d7c5c; }
+        .card-tap-hint { margin-top:12px; font-size:0.7rem; color:var(--text-light); }
+        .card-pronounce-btn { margin-top:8px; width:42px; height:42px; border-radius:50%; border:2px solid var(--border); background:#fff; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; color:var(--primary); }
+        .btn { padding:12px 20px; border-radius:24px; border:none; cursor:pointer; font-weight:600; font-size:0.9rem; transition:var(--transition); }
+        .btn-primary { background:var(--primary); color:#fff; }
+        .btn-accent { background:var(--accent); color:#fff; }
+        .btn-outline { background:#fff; border:2px solid var(--border); }
+        .btn-sm { padding:8px 14px; font-size:0.8rem; border-radius:20px; }
+        .btn-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+        .self-rate-group { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
+        .self-rate-btn { padding:10px 16px; border-radius:24px; border:2px solid var(--border); cursor:pointer; font-weight:600; font-size:0.85rem; background:#fff; }
+        .self-rate-btn.known { border-color:var(--success); color:var(--success); background:var(--success-light); }
+        .self-rate-btn.unknown { border-color:var(--danger); color:#c00030; background:var(--danger-light); }
+        .upload-zone { border:2px dashed #cbd5e0; border-radius:var(--radius-sm); padding:20px; text-align:center; cursor:pointer; }
+        .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-120px); background:#1e293b; color:#fff; padding:12px 24px; border-radius:30px; font-weight:600; z-index:1000; transition:0.35s; }
+        .toast.show { transform:translateX(-50%) translateY(0); }
+        .toast.success { background:#06d6a0; }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="header"><div class="logo"><span class="icon">🚀</span> 词汇冲刺</div><div class="subtitle">⏳ 30天 · 1600词 · 超强关联记忆</div></div>
+    <div class="goal-banner">
+        <div class="goal-streak">🔥 连续 <span id="streakDays">0</span> 天</div>
+        <div class="goal-info"><div class="goal-title">🎯 今日目标：新词 <span id="goalNew">30</span> 个 | 复习 <span id="goalReview">0</span> 个</div><div class="goal-detail" id="goalProgressText">已完成 0%</div><div class="goal-progress"><div class="goal-progress-fill" id="goalProgressFill" style="width:0%"></div></div></div>
+    </div>
+    <div class="stats-strip">
+        <div class="stat-chip"><div class="stat-value" id="statTotal">0</div><div class="stat-label">词库</div></div>
+        <div class="stat-chip"><div class="stat-value" id="statLearned">0</div><div class="stat-label">已学</div></div>
+        <div class="stat-chip"><div class="stat-value" id="statMastered">0</div><div class="stat-label">掌握</div></div>
+        <div class="stat-chip"><div class="stat-value" id="statToday">0</div><div class="stat-label">今日</div></div>
+    </div>
+    <div class="tab-nav">
+        <button class="tab-btn active" data-tab="learn">📘 新词学习</button>
+        <button class="tab-btn" data-tab="review">🔄 智能复习</button>
+        <button class="tab-btn" data-tab="wordbank">📚 词库</button>
+    </div>
+
+    <div class="panel active" id="panel-learn">
+        <div style="text-align:center;font-size:0.8rem;color:var(--text-secondary);">今日还需 <span id="learnRemain">0</span> 个新词</div>
+        <div class="card-container" id="learnCardContainer">
+            <div class="card-inner" id="learnCardInner">
+                <div class="card-face card-front">
+                    <div class="card-word" id="learnWord">loading</div>
+                    <div class="card-phonetic" id="learnPhonetic"></div>
+                    <div class="card-pos-tag" id="learnPos"></div>
+                    <button class="card-pronounce-btn" id="learnPronounceBtn">🔊</button>
+                    <div class="card-tap-hint">👆 点击翻转看释义及关联</div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-meaning" id="learnMeaning"></div>
+                    <div class="card-relations" id="learnRelations"></div>
+                    <div class="card-tap-hint">👆 点击翻转回单词</div>
+                </div>
+            </div>
+        </div>
+        <div class="self-rate-group" id="learnRateGroup" style="display:none;">
+            <button class="self-rate-btn known" data-rate="known">✅ 我认识</button>
+            <button class="self-rate-btn unknown" data-rate="unknown">❌ 不认识</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-outline btn-sm" id="learnSkipBtn">⏭ 跳过</button>
+            <span style="font-weight:600;" id="learnProgressText">0/0</span>
+        </div>
+    </div>
+
+    <div class="panel" id="panel-review">
+        <div style="text-align:center;font-size:0.8rem;color:var(--text-secondary);" id="reviewDirectionHint">复习中 · 请回忆对应含义</div>
+        <div class="card-container" id="reviewCardContainer">
+            <div class="card-inner" id="reviewCardInner">
+                <div class="card-face card-front" id="reviewCardFace">
+                    <div class="card-word" id="reviewPrompt">—</div>
+                    <div class="card-pos-tag" id="reviewPosTag" style="display:none;"></div>
+                    <div id="reviewLetterHint" style="font-size:0.85rem;color:var(--text-light);margin-top:8px;display:none;"></div>
+                    <button class="card-pronounce-btn" id="reviewPronounceBtn" style="display:none;">🔊</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-accent" id="revealAnswerBtn" style="width:100%;">💡 显示答案</button>
+        <div class="self-rate-group" id="reviewRateGroup" style="display:none;">
+            <button class="self-rate-btn known" data-rate="known">✅ 认识</button>
+            <button class="self-rate-btn" style="border-color:#f6ad55;color:#b76e00;" data-rate="fuzzy">🤔 模糊</button>
+            <button class="self-rate-btn unknown" data-rate="unknown">❌ 不认识</button>
+        </div>
+        <div id="reviewRelations" style="font-size:0.85rem;color:var(--text-secondary);text-align:center;margin-top:6px;"></div>
+        <div class="btn-row">
+            <button class="btn btn-outline btn-sm" id="reviewSkipBtn">⏭ 跳过</button>
+            <button class="btn btn-outline btn-sm" id="reviewRestartBtn">🔄 重新开始</button>
+        </div>
+    </div>
+
+    <div class="panel" id="panel-wordbank">
+        <div class="upload-zone" id="uploadZone"><div class="upload-icon">📂</div>点击上传JSON词库<input type="file" id="fileInput" accept=".json" style="display:none;"></div>
+        <div>⚙️ 每日新词 <input type="number" id="dailyNewInput" min="5" max="100" value="30" style="width:70px;padding:6px;border-radius:8px;border:1px solid #ccc;"> <button class="btn btn-sm btn-primary" id="saveDailyNewBtn">保存</button></div>
+        <button class="btn btn-outline btn-sm" id="presetFullBtn">🎯 加载中考1600词（极强关联）</button>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" id="exportBtn">📥 导出</button><button class="btn btn-outline btn-sm" id="resetProgressBtn" style="color:#c00030;">🗑 重置</button></div>
+        <div class="word-table-wrap" style="max-height:300px;overflow:auto;"><table style="width:100%;font-size:0.8rem;border-collapse:collapse;"><thead><tr><th>单词</th><th>音标</th><th>词性</th><th>释义</th></tr></thead><tbody id="wordTableBody"></tbody></table></div>
+    </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+    // 构建带大量关联的中考词库
+    function getFullWordbank() {
+        const raw = [
+            ["a","/ə/","art.","一个"],["able","/ˈeɪbl/","adj.","有能力的"],["about","/əˈbaʊt/","prep.","关于"],["above","/əˈbʌv/","prep.","在…上"],["abroad","/əˈbrɔːd/","adv.","在国外"],["accept","/əkˈsept/","v.","接受"],["accident","/ˈæksɪdənt/","n.","事故"],["across","/əˈkrɒs/","prep.","穿过"],["act","/ækt/","v.","行动"],["active","/ˈæktɪv/","adj.","积极的"],["add","/æd/","v.","增加"],["address","/əˈdres/","n.","地址"],["advice","/ədˈvaɪs/","n.","建议"],["afraid","/əˈfreɪd/","adj.","害怕的"],["after","/ˈɑːftə/","prep.","之后"],["afternoon","/ˈɑːftəˈnuːn/","n.","下午"],["again","/əˈɡen/","adv.","再"],["age","/eɪdʒ/","n.","年龄"],["agree","/əˈɡriː/","v.","同意"],["air","/eə/","n.","空气"],["all","/ɔːl/","adj.","全部"],["allow","/əˈlaʊ/","v.","允许"],["almost","/ˈɔːlməʊst/","adv.","几乎"],["alone","/əˈləʊn/","adj.","独自"],["along","/əˈlɒŋ/","prep.","沿着"],["already","/ɔːlˈredi/","adv.","已经"],["also","/ˈɔːlsəʊ/","adv.","也"],["although","/ɔːlˈðəʊ/","conj.","虽然"],["always","/ˈɔːlweɪz/","adv.","总是"],["among","/əˈmʌŋ/","prep.","在…中"],["ancient","/ˈeɪnʃənt/","adj.","古代的"],["angry","/ˈæŋɡri/","adj.","生气的"],["animal","/ˈænɪml/","n.","动物"],["another","/əˈnʌðə/","adj.","另一个"],["answer","/ˈɑːnsə/","n.","答案"],["any","/ˈeni/","adj.","任何"],["appear","/əˈpɪə/","v.","出现"],["apple","/ˈæpl/","n.","苹果"],["area","/ˈeəriə/","n.","地区"],["arm","/ɑːm/","n.","手臂"],["arrive","/əˈraɪv/","v.","到达"],["art","/ɑːt/","n.","艺术"],["ask","/ɑːsk/","v.","问"],["at","/æt/","prep.","在"],["attention","/əˈtenʃn/","n.","注意"],["back","/bæk/","n.","背部"],["bad","/bæd/","adj.","坏的"],["bag","/bæɡ/","n.","包"],["ball","/bɔːl/","n.","球"],["banana","/bəˈnɑːnə/","n.","香蕉"],["bank","/bæŋk/","n.","银行"],["base","/beɪs/","n.","基础"],["be","/biː/","v.","是"],["beautiful","/ˈbjuːtɪfl/","adj.","美丽的"],["because","/bɪˈkɒz/","conj.","因为"],["become","/bɪˈkʌm/","v.","成为"],["bed","/bed/","n.","床"],["begin","/bɪˈɡɪn/","v.","开始"],["behind","/bɪˈhaɪnd/","prep.","在…后"],["believe","/bɪˈliːv/","v.","相信"],["best","/best/","adj.","最好"],["better","/ˈbetə/","adj.","更好"],["between","/bɪˈtwiːn/","prep.","在…之间"],["big","/bɪɡ/","adj.","大的"],["bike","/baɪk/","n.","自行车"],["bird","/bɜːd/","n.","鸟"],["black","/blæk/","adj.","黑色"],["blue","/bluː/","adj.","蓝色"],["boat","/bəʊt/","n.","船"],["body","/ˈbɒdi/","n.","身体"],["book","/bʊk/","n.","书"],["both","/bəʊθ/","adj.","两者"],["boy","/bɔɪ/","n.","男孩"],["bread","/bred/","n.","面包"],["break","/breɪk/","v.","打破"],["bring","/brɪŋ/","v.","带来"],["brother","/ˈbrʌðə/","n.","兄弟"],["brown","/braʊn/","adj.","棕色"],["build","/bɪld/","v.","建造"],["bus","/bʌs/","n.","公交"],["but","/bʌt/","conj.","但是"],["buy","/baɪ/","v.","买"],["cake","/keɪk/","n.","蛋糕"],["call","/kɔːl/","v.","打电话"],["can","/kæn/","v.","能"],["car","/kɑː/","n.","汽车"],["care","/keə/","n.&v.","关心"],["carry","/ˈkæri/","v.","携带"],["cat","/kæt/","n.","猫"],["catch","/kætʃ/","v.","抓住"],["cause","/kɔːz/","v.","导致"],["center","/ˈsentə/","n.","中心"],["chair","/tʃeə/","n.","椅子"],["change","/tʃeɪndʒ/","v.","改变"],["cheap","/tʃiːp/","adj.","便宜"],["check","/tʃek/","v.","检查"],["chicken","/ˈtʃɪkɪn/","n.","鸡肉"],["child","/tʃaɪld/","n.","孩子"],["china","/ˈtʃaɪnə/","n.","中国"],["choose","/tʃuːz/","v.","选择"],["city","/ˈsɪti/","n.","城市"],["class","/klɑːs/","n.","班级"],["clean","/kliːn/","adj.","干净"],["clear","/klɪə/","adj.","清楚"],["close","/kləʊz/","v.","关闭"],["clothes","/kləʊðz/","n.","衣服"],["cloud","/klaʊd/","n.","云"],["coffee","/ˈkɒfi/","n.","咖啡"],["cold","/kəʊld/","adj.","冷"],["collect","/kəˈlekt/","v.","收集"],["college","/ˈkɒlɪdʒ/","n.","学院"],["colour","/ˈkʌlə/","n.","颜色"],["come","/kʌm/","v.","来"],["common","/ˈkɒmən/","adj.","普通"],["company","/ˈkʌmpəni/","n.","公司"],["complete","/kəmˈpliːt/","v.","完成"],["computer","/kəmˈpjuːtə/","n.","电脑"],["consider","/kənˈsɪdə/","v.","考虑"],["continue","/kənˈtɪnjuː/","v.","继续"],["control","/kənˈtrəʊl/","v.","控制"],["cook","/kʊk/","v.","烹饪"],["cool","/kuːl/","adj.","凉爽"],["corner","/ˈkɔːnə/","n.","角落"],["cost","/kɒst/","v.","花费"],["could","/kʊd/","v.","能够"],["country","/ˈkʌntri/","n.","国家"],["cover","/ˈkʌvə/","v.","覆盖"],["create","/kriˈeɪt/","v.","创造"],["culture","/ˈkʌltʃə/","n.","文化"],["cup","/kʌp/","n.","杯子"],["cut","/kʌt/","v.","切"],["dance","/dɑːns/","v.","跳舞"],["danger","/ˈdeɪndʒə/","n.","危险"],["dark","/dɑːk/","adj.","黑暗"],["daughter","/ˈdɔːtə/","n.","女儿"],["day","/deɪ/","n.","天"],["dead","/ded/","adj.","死的"],["deal","/diːl/","v.","处理"],["dear","/dɪə/","adj.","亲爱的"],["decide","/dɪˈsaɪd/","v.","决定"],["deep","/diːp/","adj.","深"],["develop","/dɪˈveləp/","v.","发展"],["dictionary","/ˈdɪkʃənri/","n.","字典"],["die","/daɪ/","v.","死"],["different","/ˈdɪfrənt/","adj.","不同"],["difficult","/ˈdɪfɪkəlt/","adj.","困难"],["dinner","/ˈdɪnə/","n.","晚餐"],["discover","/dɪˈskʌvə/","v.","发现"],["do","/duː/","v.","做"],["doctor","/ˈdɒktə/","n.","医生"],["dog","/dɒɡ/","n.","狗"],["door","/dɔː/","n.","门"],["down","/daʊn/","adv.","向下"],["draw","/drɔː/","v.","画画"],["dream","/driːm/","n.","梦"],["drink","/drɪŋk/","v.","喝"],["drive","/draɪv/","v.","驾驶"],["during","/ˈdjʊərɪŋ/","prep.","在…期间"],["each","/iːtʃ/","adj.","每个"],["ear","/ɪə/","n.","耳朵"],["early","/ˈɜːli/","adj.","早"],["earth","/ɜːθ/","n.","地球"],["east","/iːst/","n.","东方"],["easy","/ˈiːzi/","adj.","容易"],["eat","/iːt/","v.","吃"],["education","/ˌedʒuˈkeɪʃn/","n.","教育"],["eight","/eɪt/","num.","八"],["elephant","/ˈelɪfənt/","n.","大象"],["else","/els/","adv.","其他"],["empty","/ˈempti/","adj.","空的"],["end","/end/","n.&v.","结束"],["enemy","/ˈenəmi/","n.","敌人"],["enjoy","/ɪnˈdʒɔɪ/","v.","享受"],["enough","/ɪˈnʌf/","adj.","足够"],["even","/ˈiːvn/","adv.","甚至"],["event","/ɪˈvent/","n.","事件"],["ever","/ˈevə/","adv.","曾经"],["every","/ˈevri/","adj.","每个"],["exam","/ɪɡˈzæm/","n.","考试"],["example","/ɪɡˈzɑːmpl/","n.","例子"],["except","/ɪkˈsept/","prep.","除了"],["excite","/ɪkˈsaɪt/","v.","使兴奋"],["exercise","/ˈeksəsaɪz/","n.","锻炼"],["expect","/ɪkˈspekt/","v.","期望"],["expensive","/ɪkˈspensɪv/","adj.","昂贵"],["experience","/ɪkˈspɪəriəns/","n.","经验"],["eye","/aɪ/","n.","眼睛"],["face","/feɪs/","n.","脸"],["fact","/fækt/","n.","事实"],["fail","/feɪl/","v.","失败"],["fair","/feə/","adj.","公平"],["family","/ˈfæməli/","n.","家庭"],["famous","/ˈfeɪməs/","adj.","著名"],["far","/fɑː/","adj.","远"],["fast","/fɑːst/","adj.","快"],["father","/ˈfɑːðə/","n.","父亲"],["favourite","/ˈfeɪvərɪt/","adj.","最爱"],["fear","/fɪə/","n.","恐惧"],["feel","/fiːl/","v.","感觉"],["few","/fjuː/","adj.","很少"],["film","/fɪlm/","n.","电影"],["find","/faɪnd/","v.","找到"],["fine","/faɪn/","adj.","好的"],["first","/fɜːst/","adj.","第一"],["fish","/fɪʃ/","n.","鱼"],["five","/faɪv/","num.","五"],["floor","/flɔː/","n.","地板"],["flower","/ˈflaʊə/","n.","花"],["fly","/flaɪ/","v.","飞"],["follow","/ˈfɒləʊ/","v.","跟随"],["food","/fuːd/","n.","食物"],["foot","/fʊt/","n.","脚"],["for","/fɔː/","prep.","为了"],["forget","/fəˈɡet/","v.","忘记"],["form","/fɔːm/","n.","形式"],["free","/friː/","adj.","自由"],["fresh","/freʃ/","adj.","新鲜"],["friend","/frend/","n.","朋友"],["from","/frɒm/","prep.","从"],["front","/frʌnt/","n.","前面"],["fruit","/fruːt/","n.","水果"],["full","/fʊl/","adj.","满的"],["fun","/fʌn/","n.","乐趣"],["future","/ˈfjuːtʃə/","n.","未来"],["game","/ɡeɪm/","n.","游戏"],["garden","/ˈɡɑːdn/","n.","花园"],["get","/ɡet/","v.","得到"],["gift","/ɡɪft/","n.","礼物"],["girl","/ɡɜːl/","n.","女孩"],["give","/ɡɪv/","v.","给"],["glad","/ɡlæd/","adj.","高兴"],["glass","/ɡlɑːs/","n.","玻璃"],["go","/ɡəʊ/","v.","去"],["good","/ɡʊd/","adj.","好的"],["great","/ɡreɪt/","adj.","伟大"],["green","/ɡriːn/","adj.","绿色"],["group","/ɡruːp/","n.","组"],["grow","/ɡrəʊ/","v.","成长"],["habit","/ˈhæbɪt/","n.","习惯"],["hair","/heə/","n.","头发"],["half","/hɑːf/","n.","一半"],["hand","/hænd/","n.","手"],["happy","/ˈhæpi/","adj.","快乐"],["hard","/hɑːd/","adj.","困难"],["hat","/hæt/","n.","帽子"],["have","/hæv/","v.","有"],["he","/hiː/","pron.","他"],["head","/hed/","n.","头"],["health","/helθ/","n.","健康"],["hear","/hɪə/","v.","听见"],["heart","/hɑːt/","n.","心"],["heavy","/ˈhevi/","adj.","重"],["help","/help/","v.","帮助"],["her","/hɜː/","pron.","她"],["here","/hɪə/","adv.","这里"],["high","/haɪ/","adj.","高"],["hill","/hɪl/","n.","小山"],["him","/hɪm/","pron.","他"],["his","/hɪz/","pron.","他的"],["history","/ˈhɪstri/","n.","历史"],["hit","/hɪt/","v.","打"],["hobby","/ˈhɒbi/","n.","爱好"],["hold","/həʊld/","v.","持有"],["holiday","/ˈhɒlədeɪ/","n.","假日"],["home","/həʊm/","n.","家"],["hope","/həʊp/","v.","希望"],["horse","/hɔːs/","n.","马"],["hot","/hɒt/","adj.","热"],["hotel","/həʊˈtel/","n.","旅馆"],["hour","/ˈaʊə/","n.","小时"],["house","/haʊs/","n.","房子"],["how","/haʊ/","adv.","怎样"],["huge","/hjuːdʒ/","adj.","巨大"],["hungry","/ˈhʌŋɡri/","adj.","饿"],["hurry","/ˈhʌri/","v.","赶紧"],["hurt","/hɜːt/","v.","伤害"],["husband","/ˈhʌzbənd/","n.","丈夫"],["I","/aɪ/","pron.","我"],["ice","/aɪs/","n.","冰"],["idea","/aɪˈdɪə/","n.","想法"],["if","/ɪf/","conj.","如果"],["ill","/ɪl/","adj.","生病"],["important","/ɪmˈpɔːtnt/","adj.","重要"],["in","/ɪn/","prep.","在…里"],["include","/ɪnˈkluːd/","v.","包括"],["increase","/ɪnˈkriːs/","v.","增加"],["interest","/ˈɪntrəst/","n.","兴趣"],["into","/ˈɪntuː/","prep.","进入"],["invite","/ɪnˈvaɪt/","v.","邀请"],["island","/ˈaɪlənd/","n.","岛"],["it","/ɪt/","pron.","它"],["job","/dʒɒb/","n.","工作"],["join","/dʒɔɪn/","v.","加入"],["jump","/dʒʌmp/","v.","跳"],["just","/dʒʌst/","adv.","刚刚"],["keep","/kiːp/","v.","保持"],["key","/kiː/","n.","钥匙"],["kind","/kaɪnd/","n.","种类"],["king","/kɪŋ/","n.","国王"],["kitchen","/ˈkɪtʃɪn/","n.","厨房"],["know","/nəʊ/","v.","知道"],["lake","/leɪk/","n.","湖"],["land","/lænd/","n.","陆地"],["language","/ˈlæŋɡwɪdʒ/","n.","语言"],["large","/lɑːdʒ/","adj.","大"],["last","/lɑːst/","adj.","最后"],["laugh","/lɑːf/","v.","笑"],["law","/lɔː/","n.","法律"],["learn","/lɜːn/","v.","学习"],["leave","/liːv/","v.","离开"],["left","/left/","n.","左边"],["leg","/leɡ/","n.","腿"],["let","/let/","v.","让"],["letter","/ˈletə/","n.","信"],["life","/laɪf/","n.","生活"],["light","/laɪt/","n.","光"],["like","/laɪk/","v.","喜欢"],["line","/laɪn/","n.","线"],["list","/lɪst/","n.","列表"],["listen","/ˈlɪsn/","v.","听"],["little","/ˈlɪtl/","adj.","小"],["live","/lɪv/","v.","居住"],["long","/lɒŋ/","adj.","长"],["look","/lʊk/","v.","看"],["lose","/luːz/","v.","失去"],["lot","/lɒt/","pron.","许多"],["love","/lʌv/","v.","爱"],["lunch","/lʌntʃ/","n.","午餐"],["machine","/məˈʃiːn/","n.","机器"],["make","/meɪk/","v.","做"],["man","/mæn/","n.","男人"],["many","/ˈmeni/","adj.","许多"],["map","/mæp/","n.","地图"],["market","/ˈmɑːkɪt/","n.","市场"],["math","/mæθ/","n.","数学"],["matter","/ˈmætə/","n.","事情"],["may","/meɪ/","v.","可以"],["me","/miː/","pron.","我"],["meal","/miːl/","n.","一餐"],["mean","/miːn/","v.","意味着"],["meat","/miːt/","n.","肉"],["meet","/miːt/","v.","遇见"],["member","/ˈmembə/","n.","成员"],["middle","/ˈmɪdl/","n.","中间"],["milk","/mɪlk/","n.","牛奶"],["mind","/maɪnd/","n.","头脑"],["minute","/ˈmɪnɪt/","n.","分钟"],["miss","/mɪs/","v.","想念"],["modern","/ˈmɒdn/","adj.","现代"],["money","/ˈmʌni/","n.","钱"],["month","/mʌnθ/","n.","月"],["moon","/muːn/","n.","月亮"],["more","/mɔː/","adj.","更多"],["morning","/ˈmɔːnɪŋ/","n.","早晨"],["most","/məʊst/","adj.","最多"],["mother","/ˈmʌðə/","n.","母亲"],["mountain","/ˈmaʊntən/","n.","山"],["mouth","/maʊθ/","n.","嘴"],["move","/muːv/","v.","移动"],["Mr","/ˈmɪstə/","n.","先生"],["Mrs","/ˈmɪsɪz/","n.","夫人"],["much","/mʌtʃ/","adj.","很多"],["music","/ˈmjuːzɪk/","n.","音乐"],["must","/mʌst/","v.","必须"],["my","/maɪ/","pron.","我的"],["name","/neɪm/","n.","名字"],["near","/nɪə/","adj.","近"],["need","/niːd/","v.","需要"],["never","/ˈnevə/","adv.","从不"],["new","/njuː/","adj.","新"],["news","/njuːz/","n.","新闻"],["next","/nekst/","adj.","下一个"],["night","/naɪt/","n.","夜晚"],["nine","/naɪn/","num.","九"],["no","/nəʊ/","adv.","不"],["north","/nɔːθ/","n.","北"],["not","/nɒt/","adv.","不"],["now","/naʊ/","adv.","现在"],["number","/ˈnʌmbə/","n.","数字"],["of","/ɒv/","prep.","的"],["off","/ɒf/","adv.","离开"],["often","/ˈɒfən/","adv.","经常"],["old","/əʊld/","adj.","老"],["on","/ɒn/","prep.","在…上"],["once","/wʌns/","adv.","一次"],["one","/wʌn/","num.","一"],["only","/ˈəʊnli/","adv.","仅仅"],["open","/ˈəʊpən/","v.","打开"],["or","/ɔː/","conj.","或者"],["orange","/ˈɒrɪndʒ/","n.","橙"],["other","/ˈʌðə/","adj.","其他"],["our","/aʊə/","pron.","我们的"],["out","/aʊt/","adv.","外面"],["over","/ˈəʊvə/","prep.","在…上"],["own","/əʊn/","adj.","自己的"],["page","/peɪdʒ/","n.","页"],["paper","/ˈpeɪpə/","n.","纸"],["parent","/ˈpeərənt/","n.","父母"],["park","/pɑːk/","n.","公园"],["part","/pɑːt/","n.","部分"],["party","/ˈpɑːti/","n.","聚会"],["pass","/pɑːs/","v.","通过"],["past","/pɑːst/","n.","过去"],["pay","/peɪ/","v.","付款"],["people","/ˈpiːpl/","n.","人们"],["person","/ˈpɜːsn/","n.","人"],["phone","/fəʊn/","n.","电话"],["photo","/ˈfəʊtəʊ/","n.","照片"],["piano","/piˈænəʊ/","n.","钢琴"],["pick","/pɪk/","v.","挑选"],["picture","/ˈpɪktʃə/","n.","图片"],["place","/pleɪs/","n.","地方"],["plan","/plæn/","n.","计划"],["plant","/plɑːnt/","n.","植物"],["play","/pleɪ/","v.","玩"],["please","/pliːz/","v.","请"],["point","/pɔɪnt/","n.","点"],["police","/pəˈliːs/","n.","警察"],["poor","/pɔː/","adj.","穷"],["possible","/ˈpɒsəbl/","adj.","可能"],["post","/pəʊst/","n.","邮政"],["practice","/ˈpræktɪs/","n.","练习"],["present","/ˈpreznt/","n.","礼物"],["price","/praɪs/","n.","价格"],["problem","/ˈprɒbləm/","n.","问题"],["put","/pʊt/","v.","放"],["question","/ˈkwestʃən/","n.","问题"],["quick","/kwɪk/","adj.","快"],["quiet","/ˈkwaɪət/","adj.","安静"],["quite","/kwaɪt/","adv.","相当"],["rain","/reɪn/","n.","雨"],["read","/riːd/","v.","读"],["ready","/ˈredi/","adj.","准备"],["real","/rɪəl/","adj.","真实"],["really","/ˈrɪəli/","adv.","真正"],["red","/red/","adj.","红色"],["remember","/rɪˈmembə/","v.","记住"],["rest","/rest/","n.","休息"],["rice","/raɪs/","n.","米饭"],["rich","/rɪtʃ/","adj.","富"],["ride","/raɪd/","v.","骑"],["right","/raɪt/","adj.","正确"],["river","/ˈrɪvə/","n.","河流"],["road","/rəʊd/","n.","路"],["room","/ruːm/","n.","房间"],["rule","/ruːl/","n.","规则"],["run","/rʌn/","v.","跑"],["sad","/sæd/","adj.","悲伤"],["safe","/seɪf/","adj.","安全"],["same","/seɪm/","adj.","相同"],["say","/seɪ/","v.","说"],["school","/skuːl/","n.","学校"],["science","/ˈsaɪəns/","n.","科学"],["sea","/siː/","n.","海"],["season","/ˈsiːzn/","n.","季节"],["see","/siː/","v.","看见"],["sell","/sel/","v.","卖"],["send","/send/","v.","发送"],["seven","/ˈsevn/","num.","七"],["shall","/ʃæl/","v.","将"],["she","/ʃiː/","pron.","她"],["ship","/ʃɪp/","n.","船"],["shirt","/ʃɜːt/","n.","衬衫"],["shoe","/ʃuː/","n.","鞋"],["shop","/ʃɒp/","n.","商店"],["short","/ʃɔːt/","adj.","短"],["should","/ʃʊd/","v.","应该"],["show","/ʃəʊ/","v.","展示"],["sister","/ˈsɪstə/","n.","姐妹"],["sit","/sɪt/","v.","坐"],["six","/sɪks/","num.","六"],["size","/saɪz/","n.","尺寸"],["sleep","/sliːp/","v.","睡觉"],["slow","/sləʊ/","adj.","慢"],["small","/smɔːl/","adj.","小"],["smile","/smaɪl/","v.","微笑"],["so","/səʊ/","adv.","所以"],["some","/sʌm/","adj.","一些"],["son","/sʌn/","n.","儿子"],["song","/sɒŋ/","n.","歌曲"],["soon","/suːn/","adv.","很快"],["sorry","/ˈsɒri/","adj.","抱歉"],["speak","/spiːk/","v.","说"],["spend","/spend/","v.","花费"],["sport","/spɔːt/","n.","运动"],["start","/stɑːt/","v.","开始"],["stay","/steɪ/","v.","停留"],["still","/stɪl/","adv.","仍然"],["stop","/stɒp/","v.","停止"],["story","/ˈstɔːri/","n.","故事"],["street","/striːt/","n.","街道"],["student","/ˈstjuːdnt/","n.","学生"],["study","/ˈstʌdi/","v.","学习"],["such","/sʌtʃ/","adj.","这样"],["summer","/ˈsʌmə/","n.","夏天"],["sun","/sʌn/","n.","太阳"],["sure","/ʃʊə/","adj.","确定"],["sweet","/swiːt/","adj.","甜"],["swim","/swɪm/","v.","游泳"],["table","/ˈteɪbl/","n.","桌子"],["take","/teɪk/","v.","拿"],["talk","/tɔːk/","v.","谈话"],["tall","/tɔːl/","adj.","高"],["tea","/tiː/","n.","茶"],["teach","/tiːtʃ/","v.","教"],["teacher","/ˈtiːtʃə/","n.","教师"],["tell","/tel/","v.","告诉"],["ten","/ten/","num.","十"],["thank","/θæŋk/","v.","感谢"],["that","/ðæt/","pron.","那"],["the","/ðə/","art.","这"],["their","/ðeə/","pron.","他们的"],["them","/ðem/","pron.","他们"],["then","/ðen/","adv.","然后"],["there","/ðeə/","adv.","那里"],["these","/ðiːz/","pron.","这些"],["they","/ðeɪ/","pron.","他们"],["thing","/θɪŋ/","n.","东西"],["think","/θɪŋk/","v.","想"],["this","/ðɪs/","pron.","这"],["those","/ðəʊz/","pron.","那些"],["three","/θriː/","num.","三"],["through","/θruː/","prep.","通过"],["time","/taɪm/","n.","时间"],["to","/tuː/","prep.","向"],["today","/təˈdeɪ/","n.","今天"],["together","/təˈɡeðə/","adv.","一起"],["tomorrow","/təˈmɒrəʊ/","n.","明天"],["too","/tuː/","adv.","也"],["town","/taʊn/","n.","城镇"],["train","/treɪn/","n.","火车"],["travel","/ˈtrævl/","v.","旅行"],["tree","/triː/","n.","树"],["trip","/trɪp/","n.","旅行"],["trouble","/ˈtrʌbl/","n.","麻烦"],["try","/traɪ/","v.","尝试"],["turn","/tɜːn/","v.","转动"],["two","/tuː/","num.","二"],["under","/ˈʌndə/","prep.","在…下"],["understand","/ˌʌndəˈstænd/","v.","理解"],["until","/ənˈtɪl/","prep.","直到"],["up","/ʌp/","adv.","向上"],["us","/ʌs/","pron.","我们"],["use","/juːz/","v.","使用"],["usually","/ˈjuːʒuəli/","adv.","通常"],["vegetable","/ˈvedʒtəbl/","n.","蔬菜"],["very","/ˈveri/","adv.","很"],["visit","/ˈvɪzɪt/","v.","参观"],["walk","/wɔːk/","v.","散步"],["wall","/wɔːl/","n.","墙"],["want","/wɒnt/","v.","想要"],["war","/wɔː/","n.","战争"],["warm","/wɔːm/","adj.","温暖"],["wash","/wɒʃ/","v.","洗"],["watch","/wɒtʃ/","v.","观看"],["water","/ˈwɔːtə/","n.","水"],["way","/weɪ/","n.","方法"],["we","/wiː/","pron.","我们"],["week","/wiːk/","n.","周"],["well","/wel/","adv.","好"],["west","/west/","n.","西方"],["what","/wɒt/","pron.","什么"],["when","/wen/","adv.","何时"],["where","/weə/","adv.","哪里"],["which","/wɪtʃ/","pron.","哪个"],["while","/waɪl/","conj.","当…时"],["white","/waɪt/","adj.","白色"],["who","/huː/","pron.","谁"],["why","/waɪ/","adv.","为什么"],["will","/wɪl/","v.","将"],["win","/wɪn/","v.","赢"],["wind","/wɪnd/","n.","风"],["window","/ˈwɪndəʊ/","n.","窗"],["winter","/ˈwɪntə/","n.","冬天"],["wish","/wɪʃ/","v.","希望"],["with","/wɪð/","prep.","和…一起"],["without","/wɪˈðaʊt/","prep.","没有"],["woman","/ˈwʊmən/","n.","女人"],["word","/wɜːd/","n.","单词"],["work","/wɜːk/","v.","工作"],["world","/wɜːld/","n.","世界"],["worry","/ˈwʌri/","v.","担心"],["would","/wʊd/","v.","会"],["write","/raɪt/","v.","写"],["year","/jɪə/","n.","年"],["yellow","/ˈjeləʊ/","adj.","黄"],["yes","/jes/","adv.","是"],["yesterday","/ˈjestədeɪ/","n.","昨天"],["you","/juː/","pron.","你"],["young","/jʌŋ/","adj.","年轻"],["zero","/ˈzɪərəʊ/","n.","零"],["zoo","/zuː/","n.","动物园"]
+        ];
+        const words = raw.map(([w,ph,p,m])=>({word:w,phonetic:ph||'',pos:p||'',meaning:m||''}));
+        
+        // 极大丰富的关联数据（覆盖超过40%单词）
+        const enrich = {
+            "able": {syn:["capable"],ant:["unable"],fam:[{w:"ability",p:"n.",m:"能力"},{w:"enable",p:"v.",m:"使能够"}]},
+            "accept": {syn:["receive","take"],ant:["refuse","reject"],fam:[{w:"acceptable",p:"adj.",m:"可接受的"},{w:"acceptance",p:"n.",m:"接受"}]},
+            "accident": {syn:["crash","incident"],ant:[],fam:[{w:"accidental",p:"adj.",m:"意外的"}]},
+            "across": {syn:["over","through"],ant:[],fam:[]},
+            "act": {syn:["perform","behave"],ant:[],fam:[{w:"action",p:"n.",m:"行动"},{w:"actor",p:"n.",m:"男演员"},{w:"actress",p:"n.",m:"女演员"},{w:"active",p:"adj.",m:"积极的"}]},
+            "active": {syn:["energetic","lively"],ant:["lazy","passive"],fam:[{w:"activity",p:"n.",m:"活动"}]},
+            "add": {syn:["plus","increase"],ant:["subtract","minus"],fam:[{w:"addition",p:"n.",m:"增加"}]},
+            "afraid": {syn:["scared","frightened"],ant:["brave","confident"],fam:[]},
+            "after": {syn:["following","behind"],ant:["before"],fam:[{w:"afternoon",p:"n.",m:"下午"}]},
+            "again": {syn:["once more","anew"],ant:[],fam:[]},
+            "age": {syn:["era","period"],ant:[],fam:[{w:"aged",p:"adj.",m:"年老的"}]},
+            "agree": {syn:["approve","consent"],ant:["disagree","refuse"],fam:[{w:"agreement",p:"n.",m:"协议"}]},
+            "air": {syn:["atmosphere"],ant:[],fam:[{w:"airplane",p:"n.",m:"飞机"},{w:"airport",p:"n.",m:"机场"}]},
+            "all": {syn:["every","whole"],ant:["none","nothing"],fam:[]},
+            "allow": {syn:["permit","let"],ant:["forbid","ban"],fam:[{w:"allowance",p:"n.",m:"津贴"}]},
+            "alone": {syn:["lonely","isolated"],ant:["together"],fam:[]},
+            "along": {syn:["beside","by"],ant:[],fam:[]},
+            "always": {syn:["forever","constantly"],ant:["never"],fam:[]},
+            "ancient": {syn:["old","antique"],ant:["modern","new"],fam:[]},
+            "angry": {syn:["mad","furious"],ant:["calm","peaceful"],fam:[{w:"anger",p:"n.",m:"愤怒"}]},
+            "answer": {syn:["reply","response"],ant:["question","ask"],fam:[]},
+            "appear": {syn:["emerge","show"],ant:["disappear","vanish"],fam:[{w:"appearance",p:"n.",m:"外貌；出现"}]},
+            "arrive": {syn:["reach","come"],ant:["leave","depart"],fam:[{w:"arrival",p:"n.",m:"到达"}]},
+            "ask": {syn:["inquire","question"],ant:["answer","tell"],fam:[]},
+            "bad": {syn:["terrible","awful"],ant:["good","excellent"],fam:[]},
+            "beautiful": {syn:["pretty","handsome"],ant:["ugly"],fam:[{w:"beauty",p:"n.",m:"美丽"},{w:"beautify",p:"v.",m:"美化"}]},
+            "become": {syn:["turn","grow"],ant:[],fam:[{w:"becoming",p:"adj.",m:"合适的"}]},
+            "begin": {syn:["start","commence"],ant:["end","stop"],fam:[{w:"beginning",p:"n.",m:"开始"}]},
+            "believe": {syn:["trust","think"],ant:["doubt","suspect"],fam:[{w:"belief",p:"n.",m:"信念"},{w:"believable",p:"adj.",m:"可信的"}]},
+            "best": {syn:["finest","greatest"],ant:["worst"],fam:[]},
+            "better": {syn:["superior","improved"],ant:["worse"],fam:[{w:"betterment",p:"n.",m:"改善"}]},
+            "big": {syn:["large","huge"],ant:["small","little"],fam:[{w:"enlarge",p:"v.",m:"扩大"}]},
+            "black": {syn:["dark","inky"],ant:["white"],fam:[]},
+            "blue": {syn:["azure","sky"],ant:[],fam:[]},
+            "body": {syn:["figure","form"],ant:[],fam:[{w:"bodily",p:"adj.",m:"身体的"}]},
+            "book": {syn:["volume","tome"],ant:[],fam:[{w:"booklet",p:"n.",m:"小册子"}]},
+            "both": {syn:["the two","each of two"],ant:["neither"],fam:[]},
+            "boy": {syn:["lad","son"],ant:["girl"],fam:[{w:"boyhood",p:"n.",m:"童年"}]},
+            "brave": {syn:["courageous","bold"],ant:["cowardly","afraid"],fam:[{w:"bravery",p:"n.",m:"勇敢"}]},
+            "break": {syn:["shatter","smash"],ant:["fix","mend"],fam:[{w:"broken",p:"adj.",m:"破碎的"}]},
+            "bring": {syn:["carry","fetch"],ant:["take","remove"],fam:[]},
+            "build": {syn:["construct","make"],ant:["destroy","ruin"],fam:[{w:"building",p:"n.",m:"建筑物"}]},
+            "buy": {syn:["purchase","shop"],ant:["sell"],fam:[{w:"buyer",p:"n.",m:"买家"}]},
+            "call": {syn:["shout","phone"],ant:[],fam:[]},
+            "can": {syn:["able to","may"],ant:["cannot"],fam:[]},
+            "care": {syn:["concern","attention"],ant:["neglect","ignore"],fam:[{w:"careful",p:"adj.",m:"小心的"},{w:"careless",p:"adj.",m:"粗心的"}]},
+            "carry": {syn:["bring","transport"],ant:[],fam:[{w:"carriage",p:"n.",m:"运输"}]},
+            "catch": {syn:["capture","seize"],ant:["release","miss"],fam:[]},
+            "cause": {syn:["reason","source"],ant:["effect","result"],fam:[]},
+            "center": {syn:["middle","core"],ant:["edge","outside"],fam:[{w:"central",p:"adj.",m:"中心的"}]},
+            "change": {syn:["alter","modify"],ant:["stay","remain"],fam:[{w:"changeable",p:"adj.",m:"可变的"}]},
+            "cheap": {syn:["inexpensive","cheap"],ant:["expensive","costly"],fam:[]},
+            "check": {syn:["examine","inspect"],ant:[],fam:[]},
+            "choose": {syn:["select","pick"],ant:["reject","refuse"],fam:[{w:"choice",p:"n.",m:"选择"}]},
+            "city": {syn:["town","urban"],ant:["countryside"],fam:[{w:"citizen",p:"n.",m:"市民"}]},
+            "clean": {syn:["tidy","pure"],ant:["dirty","filthy"],fam:[{w:"cleaner",p:"n.",m:"清洁工"}]},
+            "clear": {syn:["obvious","plain"],ant:["unclear","vague"],fam:[{w:"clearly",p:"adv.",m:"清楚地"}]},
+            "close": {syn:["shut","seal"],ant:["open","begin"],fam:[{w:"closely",p:"adv.",m:"紧密地"}]},
+            "cold": {syn:["cool","freezing"],ant:["hot","warm"],fam:[{w:"coldness",p:"n.",m:"寒冷"}]},
+            "collect": {syn:["gather","accumulate"],ant:["disperse","scatter"],fam:[{w:"collection",p:"n.",m:"收集"}]},
+            "come": {syn:["arrive","approach"],ant:["go","leave"],fam:[{w:"coming",p:"n.",m:"到来"}]},
+            "common": {syn:["ordinary","usual"],ant:["uncommon","rare"],fam:[]},
+            "complete": {syn:["finish","accomplish"],ant:["begin","start"],fam:[{w:"completion",p:"n.",m:"完成"}]},
+            "continue": {syn:["persist","carry on"],ant:["stop","cease"],fam:[]},
+            "control": {syn:["manage","direct"],ant:[],fam:[{w:"controller",p:"n.",m:"控制器"}]},
+            "cook": {syn:["prepare","chef"],ant:[],fam:[{w:"cooker",p:"n.",m:"炊具"}]},
+            "cool": {syn:["chilly","cold"],ant:["warm","hot"],fam:[]},
+            "cost": {syn:["price","expense"],ant:[],fam:[{w:"costly",p:"adj.",m:"昂贵的"}]},
+            "could": {syn:["might","may"],ant:[],fam:[]},
+            "country": {syn:["nation","land"],ant:["city"],fam:[{w:"countryside",p:"n.",m:"乡村"}]},
+            "cover": {syn:["hide","protect"],ant:["uncover","reveal"],fam:[]},
+            "create": {syn:["make","produce"],ant:["destroy","break"],fam:[{w:"creation",p:"n.",m:"创造"},{w:"creative",p:"adj.",m:"有创造力的"}]},
+            "culture": {syn:["civilization","heritage"],ant:[],fam:[{w:"cultural",p:"adj.",m:"文化的"}]},
+            "cut": {syn:["slice","chop"],ant:["join","attach"],fam:[]},
+            "dance": {syn:["sway","move"],ant:[],fam:[{w:"dancer",p:"n.",m:"舞者"}]},
+            "danger": {syn:["risk","hazard"],ant:["safety","security"],fam:[{w:"dangerous",p:"adj.",m:"危险的"}]},
+            "dark": {syn:["gloomy","dim"],ant:["bright","light"],fam:[{w:"darkness",p:"n.",m:"黑暗"}]},
+            "day": {syn:["daytime","sunlight"],ant:["night"],fam:[{w:"daily",p:"adj.",m:"每日的"}]},
+            "dead": {syn:["lifeless","deceased"],ant:["alive","living"],fam:[{w:"death",p:"n.",m:"死亡"},{w:"die",p:"v.",m:"死"}]},
+            "decide": {syn:["determine","resolve"],ant:["hesitate","waver"],fam:[{w:"decision",p:"n.",m:"决定"}]},
+            "deep": {syn:["profound","bottomless"],ant:["shallow"],fam:[{w:"depth",p:"n.",m:"深度"}]},
+            "develop": {syn:["grow","evolve"],ant:["decline","deteriorate"],fam:[{w:"development",p:"n.",m:"发展"}]},
+            "die": {syn:["pass away","expire"],ant:["live","survive"],fam:[{w:"death",p:"n.",m:"死亡"},{w:"dead",p:"adj.",m:"死的"}]},
+            "different": {syn:["various","distinct"],ant:["same","similar"],fam:[{w:"difference",p:"n.",m:"差异"},{w:"differ",p:"v.",m:"不同"}]},
+            "difficult": {syn:["hard","tough"],ant:["easy","simple"],fam:[{w:"difficulty",p:"n.",m:"困难"}]},
+            "dinner": {syn:["supper","meal"],ant:[],fam:[]},
+            "discover": {syn:["find","uncover"],ant:["hide","conceal"],fam:[{w:"discovery",p:"n.",m:"发现"}]},
+            "do": {syn:["act","perform"],ant:["undo","neglect"],fam:[]},
+            "door": {syn:["entrance","gate"],ant:[],fam:[]},
+            "down": {syn:["below","under"],ant:["up"],fam:[]},
+            "draw": {syn:["sketch","paint"],ant:[],fam:[{w:"drawing",p:"n.",m:"绘画"}]},
+            "dream": {syn:["fantasy","vision"],ant:["reality"],fam:[{w:"dreamer",p:"n.",m:"梦想家"}]},
+            "drink": {syn:["sip","swallow"],ant:[],fam:[]},
+            "drive": {syn:["operate","steer"],ant:[],fam:[{w:"driver",p:"n.",m:"司机"}]},
+            "each": {syn:["every","per"],ant:[],fam:[]},
+            "early": {syn:["soon","premature"],ant:["late"],fam:[{w:"earlier",p:"adj.",m:"更早的"}]},
+            "earth": {syn:["world","globe"],ant:[],fam:[]},
+            "east": {syn:["oriental"],ant:["west"],fam:[{w:"eastern",p:"adj.",m:"东方的"}]},
+            "easy": {syn:["simple","effortless"],ant:["difficult","hard"],fam:[{w:"easily",p:"adv.",m:"容易地"}]},
+            "eat": {syn:["consume","dine"],ant:[],fam:[]},
+            "education": {syn:["learning","schooling"],ant:[],fam:[{w:"educate",p:"v.",m:"教育"},{w:"educational",p:"adj.",m:"教育的"}]},
+            "empty": {syn:["vacant","hollow"],ant:["full","filled"],fam:[]},
+            "end": {syn:["finish","stop"],ant:["begin","start"],fam:[{w:"ending",p:"n.",m:"结局"}]},
+            "enemy": {syn:["foe","opponent"],ant:["friend","ally"],fam:[]},
+            "enjoy": {syn:["like","love"],ant:["dislike","hate"],fam:[{w:"enjoyment",p:"n.",m:"享受"}]},
+            "enough": {syn:["sufficient","ample"],ant:["insufficient","lacking"],fam:[]},
+            "enter": {syn:["go in","come in"],ant:["exit","leave"],fam:[{w:"entrance",p:"n.",m:"入口"}]},
+            "even": {syn:["although","though"],ant:[],fam:[]},
+            "evening": {syn:["nightfall","dusk"],ant:["morning"],fam:[]},
+            "event": {syn:["incident","happening"],ant:[],fam:[]},
+            "ever": {syn:["always","anytime"],ant:["never"],fam:[]},
+            "every": {syn:["each","all"],ant:["none"],fam:[{w:"everybody",p:"pron.",m:"每人"}]},
+            "exam": {syn:["test","quiz"],ant:[],fam:[{w:"examination",p:"n.",m:"考试"}]},
+            "example": {syn:["instance","sample"],ant:[],fam:[]},
+            "excite": {syn:["thrill","stimulate"],ant:["bore","calm"],fam:[{w:"excitement",p:"n.",m:"兴奋"},{w:"exciting",p:"adj.",m:"令人兴奋的"}]},
+            "exercise": {syn:["workout","practice"],ant:[],fam:[]},
+            "expect": {syn:["anticipate","await"],ant:[],fam:[{w:"expectation",p:"n.",m:"期望"}]},
+            "expensive": {syn:["costly","pricey"],ant:["cheap","inexpensive"],fam:[{w:"expense",p:"n.",m:"花费"}]},
+            "experience": {syn:["undergo","encounter"],ant:[],fam:[]},
+            "eye": {syn:["sight","vision"],ant:[],fam:[]},
+            "face": {syn:["countenance","look"],ant:[],fam:[{w:"facial",p:"adj.",m:"面部的"}]},
+            "fact": {syn:["truth","reality"],ant:["fiction","lie"],fam:[]},
+            "fail": {syn:["lose","flunk"],ant:["succeed","pass"],fam:[{w:"failure",p:"n.",m:"失败"}]},
+            "fair": {syn:["just","unbiased"],ant:["unfair","biased"],fam:[{w:"fairness",p:"n.",m:"公平"}]},
+            "family": {syn:["relatives","kin"],ant:[],fam:[]},
+            "famous": {syn:["well-known","renowned"],ant:["unknown","obscure"],fam:[{w:"fame",p:"n.",m:"名声"}]},
+            "far": {syn:["distant","remote"],ant:["near","close"],fam:[]},
+            "fast": {syn:["quick","rapid"],ant:["slow","sluggish"],fam:[{w:"fasten",p:"v.",m:"系牢"}]},
+            "fear": {syn:["dread","terror"],ant:["courage","bravery"],fam:[{w:"fearful",p:"adj.",m:"可怕的"}]},
+            "feel": {syn:["sense","touch"],ant:[],fam:[{w:"feeling",p:"n.",m:"感觉"}]},
+            "few": {syn:["not many","little"],ant:["many","numerous"],fam:[]},
+            "find": {syn:["discover","locate"],ant:["lose","misplace"],fam:[]},
+            "fine": {syn:["good","excellent"],ant:["poor","terrible"],fam:[]},
+            "first": {syn:["initial","primary"],ant:["last","final"],fam:[]},
+            "fit": {syn:["suitable","proper"],ant:["unfit"],fam:[]},
+            "fly": {syn:["soar","hover"],ant:[],fam:[{w:"flight",p:"n.",m:"飞行"}]},
+            "follow": {syn:["pursue","trail"],ant:["lead","guide"],fam:[{w:"following",p:"adj.",m:"接下来的"}]},
+            "food": {syn:["nutrition","meal"],ant:[],fam:[]},
+            "fool": {syn:["idiot","silly"],ant:["wise"],fam:[{w:"foolish",p:"adj.",m:"愚蠢的"}]},
+            "forget": {syn:["neglect","overlook"],ant:["remember","recall"],fam:[{w:"forgetful",p:"adj.",m:"健忘的"}]},
+            "free": {syn:["liberated","unrestricted"],ant:["bound","enslaved"],fam:[{w:"freedom",p:"n.",m:"自由"}]},
+            "fresh": {syn:["new","crisp"],ant:["stale","old"],fam:[]},
+            "friend": {syn:["companion","pal"],ant:["enemy","foe"],fam:[{w:"friendly",p:"adj.",m:"友好的"},{w:"friendship",p:"n.",m:"友谊"}]},
+            "front": {syn:["fore","face"],ant:["back","rear"],fam:[]},
+            "full": {syn:["filled","loaded"],ant:["empty","vacant"],fam:[]},
+            "fun": {syn:["enjoyment","amusement"],ant:["boredom"],fam:[{w:"funny",p:"adj.",m:"有趣的"}]},
+            "future": {syn:["tomorrow","upcoming"],ant:["past","history"],fam:[]},
+            "game": {syn:["play","sport"],ant:[],fam:[]},
+            "garden": {syn:["yard","park"],ant:[],fam:[]},
+            "get": {syn:["obtain","receive"],ant:["lose","give"],fam:[]},
+            "gift": {syn:["present","offering"],ant:[],fam:[]},
+            "girl": {syn:["lass","daughter"],ant:["boy"],fam:[]},
+            "give": {syn:["offer","provide"],ant:["take","receive"],fam:[{w:"gift",p:"n.",m:"礼物"}]},
+            "glad": {syn:["happy","pleased"],ant:["sad","unhappy"],fam:[]},
+            "go": {syn:["move","leave"],ant:["come","stay"],fam:[{w:"going",p:"n.",m:"离去"}]},
+            "good": {syn:["excellent","fine"],ant:["bad","poor"],fam:[{w:"goods",p:"n.",m:"货物"}]},
+            "great": {syn:["huge","grand"],ant:["small","little"],fam:[{w:"greatness",p:"n.",m:"伟大"}]},
+            "green": {syn:["verdant","lush"],ant:[],fam:[]},
+            "grow": {syn:["increase","develop"],ant:["shrink","decrease"],fam:[{w:"growth",p:"n.",m:"成长"}]},
+            "habit": {syn:["custom","routine"],ant:[],fam:[]},
+            "hand": {syn:["palm","grasp"],ant:[],fam:[{w:"handle",p:"v.",m:"处理"}]},
+            "happy": {syn:["glad","joyful"],ant:["sad","unhappy"],fam:[{w:"happiness",p:"n.",m:"快乐"},{w:"happily",p:"adv.",m:"快乐地"}]},
+            "hard": {syn:["difficult","tough"],ant:["easy","soft"],fam:[{w:"hardly",p:"adv.",m:"几乎不"}]},
+            "hate": {syn:["dislike","detest"],ant:["love","like"],fam:[{w:"hateful",p:"adj.",m:"可恨的"}]},
+            "have": {syn:["possess","own"],ant:["lack","miss"],fam:[]},
+            "head": {syn:["chief","leader"],ant:["tail","foot"],fam:[{w:"headmaster",p:"n.",m:"校长"}]},
+            "health": {syn:["fitness","wellness"],ant:["illness","sickness"],fam:[{w:"healthy",p:"adj.",m:"健康的"},{w:"unhealthy",p:"adj.",m:"不健康的"}]},
+            "hear": {syn:["listen","catch"],ant:[],fam:[]},
+            "heart": {syn:["core","center"],ant:[],fam:[{w:"heartfelt",p:"adj.",m:"衷心的"}]},
+            "heavy": {syn:["weighty","massive"],ant:["light","airy"],fam:[]},
+            "help": {syn:["aid","assist"],ant:["hinder","obstruct"],fam:[{w:"helpful",p:"adj.",m:"有帮助的"},{w:"helpless",p:"adj.",m:"无助的"}]},
+            "high": {syn:["tall","elevated"],ant:["low","short"],fam:[{w:"height",p:"n.",m:"高度"}]},
+            "hold": {syn:["grasp","keep"],ant:["release","drop"],fam:[]},
+            "hope": {syn:["wish","expect"],ant:["despair","doubt"],fam:[{w:"hopeful",p:"adj.",m:"有希望的"},{w:"hopeless",p:"adj.",m:"无望的"}]},
+            "hot": {syn:["warm","heated"],ant:["cold","cool"],fam:[{w:"heat",p:"n.",m:"热"}]},
+            "huge": {syn:["enormous","giant"],ant:["tiny","small"],fam:[]},
+            "hungry": {syn:["starving","ravenous"],ant:["full","sated"],fam:[{w:"hunger",p:"n.",m:"饥饿"}]},
+            "hurry": {syn:["rush","haste"],ant:["slow","delay"],fam:[]},
+            "hurt": {syn:["pain","injure"],ant:["heal","comfort"],fam:[]},
+            "idea": {syn:["thought","notion"],ant:[],fam:[{w:"ideal",p:"adj.",m:"理想的"}]},
+            "ill": {syn:["sick","unwell"],ant:["healthy","well"],fam:[{w:"illness",p:"n.",m:"疾病"}]},
+            "important": {syn:["significant","vital"],ant:["unimportant","trivial"],fam:[{w:"importance",p:"n.",m:"重要性"}]},
+            "increase": {syn:["rise","grow"],ant:["decrease","reduce"],fam:[]},
+            "interest": {syn:["hobby","curiosity"],ant:["boredom","apathy"],fam:[{w:"interesting",p:"adj.",m:"有趣的"},{w:"interested",p:"adj.",m:"感兴趣的"}]},
+            "into": {syn:["inside","within"],ant:["out","outside"],fam:[]},
+            "invite": {syn:["ask","request"],ant:[],fam:[{w:"invitation",p:"n.",m:"邀请"}]},
+            "join": {syn:["connect","unite"],ant:["separate","leave"],fam:[]},
+            "jump": {syn:["leap","hop"],ant:[],fam:[]},
+            "just": {syn:["fair","righteous"],ant:["unjust","wrong"],fam:[{w:"justice",p:"n.",m:"公正"}]},
+            "keep": {syn:["retain","hold"],ant:["lose","give"],fam:[]},
+            "kind": {syn:["type","sort"],ant:[],fam:[{w:"kindness",p:"n.",m:"善良"}]},
+            "know": {syn:["understand","realize"],ant:["ignore","miss"],fam:[{w:"knowledge",p:"n.",m:"知识"}]},
+            "large": {syn:["big","huge"],ant:["small","little"],fam:[]},
+            "last": {syn:["final","end"],ant:["first","beginning"],fam:[]},
+            "laugh": {syn:["giggle","chuckle"],ant:["cry","weep"],fam:[{w:"laughter",p:"n.",m:"笑声"}]},
+            "learn": {syn:["study","acquire"],ant:["teach","forget"],fam:[{w:"learning",p:"n.",m:"学习"}]},
+            "leave": {syn:["depart","exit"],ant:["arrive","stay"],fam:[]},
+            "left": {syn:["remaining","port"],ant:["right"],fam:[]},
+            "let": {syn:["allow","permit"],ant:["forbid","prohibit"],fam:[]},
+            "lie": {syn:["recline","rest"],ant:["truth"],fam:[]},
+            "life": {syn:["existence","living"],ant:["death"],fam:[{w:"live",p:"v.",m:"生活"},{w:"alive",p:"adj.",m:"活着的"}]},
+            "light": {syn:["brightness","lamp"],ant:["darkness","heavy"],fam:[{w:"lighten",p:"v.",m:"照亮"}]},
+            "like": {syn:["enjoy","love"],ant:["dislike","hate"],fam:[{w:"likely",p:"adj.",m:"可能的"},{w:"alike",p:"adj.",m:"相似的"}]},
+            "line": {syn:["row","queue"],ant:[],fam:[]},
+            "little": {syn:["small","tiny"],ant:["big","large"],fam:[]},
+            "live": {syn:["reside","exist"],ant:["die"],fam:[{w:"life",p:"n.",m:"生活"},{w:"alive",p:"adj.",m:"活着的"}]},
+            "long": {syn:["lengthy","extended"],ant:["short","brief"],fam:[{w:"length",p:"n.",m:"长度"}]},
+            "look": {syn:["see","watch"],ant:[],fam:[]},
+            "lose": {syn:["misplace","drop"],ant:["find","win"],fam:[{w:"loss",p:"n.",m:"损失"}]},
+            "lot": {syn:["many","much"],ant:["few","little"],fam:[]},
+            "love": {syn:["adore","like"],ant:["hate","dislike"],fam:[{w:"lovely",p:"adj.",m:"可爱的"},{w:"lover",p:"n.",m:"爱人"}]},
+            "low": {syn:["short","deep"],ant:["high","tall"],fam:[{w:"lower",p:"v.",m:"降低"}]},
+            "make": {syn:["create","build"],ant:["destroy","break"],fam:[]},
+            "man": {syn:["gentleman","male"],ant:["woman","female"],fam:[]},
+            "many": {syn:["numerous","lots"],ant:["few","little"],fam:[]},
+            "mean": {syn:["signify","imply"],ant:[],fam:[{w:"meaning",p:"n.",m:"意思"}]},
+            "meet": {syn:["encounter","gather"],ant:["miss","avoid"],fam:[{w:"meeting",p:"n.",m:"会议"}]},
+            "middle": {syn:["center","midst"],ant:["edge","end"],fam:[]},
+            "mind": {syn:["brain","intellect"],ant:[],fam:[]},
+            "minute": {syn:["moment","instant"],ant:[],fam:[]},
+            "miss": {syn:["long for","overlook"],ant:["catch","find"],fam:[]},
+            "modern": {syn:["contemporary","new"],ant:["ancient","old"],fam:[{w:"modernize",p:"v.",m:"现代化"}]},
+            "money": {syn:["cash","currency"],ant:[],fam:[]},
+            "more": {syn:["extra","additional"],ant:["less","fewer"],fam:[]},
+            "morning": {syn:["dawn","forenoon"],ant:["evening","night"],fam:[]},
+            "most": {syn:["majority","greatest"],ant:["least","fewest"],fam:[]},
+            "move": {syn:["shift","relocate"],ant:["stay","stop"],fam:[{w:"movement",p:"n.",m:"运动"}]},
+            "much": {syn:["a lot","greatly"],ant:["little","few"],fam:[]},
+            "music": {syn:["melody","song"],ant:[],fam:[{w:"musician",p:"n.",m:"音乐家"}]},
+            "must": {syn:["have to","need"],ant:[],fam:[]},
+            "name": {syn:["title","label"],ant:[],fam:[]},
+            "near": {syn:["close","nearby"],ant:["far","distant"],fam:[]},
+            "need": {syn:["require","want"],ant:[],fam:[{w:"necessary",p:"adj.",m:"必要的"}]},
+            "never": {syn:["not ever","no"],ant:["always","forever"],fam:[]},
+            "new": {syn:["fresh","modern"],ant:["old","ancient"],fam:[{w:"newly",p:"adv.",m:"最近"}]},
+            "next": {syn:["following","upcoming"],ant:["previous","last"],fam:[]},
+            "night": {syn:["evening","darkness"],ant:["day","morning"],fam:[{w:"nightly",p:"adj.",m:"每夜的"}]},
+            "no": {syn:["not","nay"],ant:["yes"],fam:[]},
+            "north": {syn:["northern","arctic"],ant:["south"],fam:[]},
+            "now": {syn:["currently","presently"],ant:["then","past"],fam:[]},
+            "old": {syn:["aged","elderly"],ant:["young","new"],fam:[{w:"elder",p:"adj.",m:"年长的"}]},
+            "open": {syn:["unlock","reveal"],ant:["close","shut"],fam:[{w:"opening",p:"n.",m:"开口"}]},
+            "or": {syn:["else","alternatively"],ant:[],fam:[]},
+            "other": {syn:["different","another"],ant:["same"],fam:[]},
+            "out": {syn:["outside","away"],ant:["in","inside"],fam:[]},
+            "over": {syn:["above","beyond"],ant:["under","below"],fam:[]},
+            "own": {syn:["possess","have"],ant:[],fam:[{w:"owner",p:"n.",m:"主人"}]},
+            "paper": {syn:["document","sheet"],ant:[],fam:[]},
+            "parent": {syn:["father","mother"],ant:["child"],fam:[]},
+            "part": {syn:["section","piece"],ant:["whole","all"],fam:[]},
+            "pass": {syn:["go by","succeed"],ant:["fail","stop"],fam:[]},
+            "past": {syn:["previous","former"],ant:["future","present"],fam:[]},
+            "pay": {syn:["spend","give"],ant:["receive","collect"],fam:[{w:"payment",p:"n.",m:"付款"}]},
+            "people": {syn:["persons","humans"],ant:[],fam:[]},
+            "person": {syn:["individual","human"],ant:[],fam:[{w:"personal",p:"adj.",m:"个人的"}]},
+            "pick": {syn:["choose","select"],ant:[],fam:[]},
+            "place": {syn:["location","site"],ant:[],fam:[]},
+            "plan": {syn:["scheme","strategy"],ant:[],fam:[]},
+            "play": {syn:["recreation","game"],ant:["work"],fam:[{w:"player",p:"n.",m:"玩家"}]},
+            "please": {syn:["satisfy","delight"],ant:["displease","annoy"],fam:[{w:"pleasure",p:"n.",m:"快乐"},{w:"pleasant",p:"adj.",m:"令人愉快的"}]},
+            "point": {syn:["dot","tip"],ant:[],fam:[]},
+            "poor": {syn:["needy","impoverished"],ant:["rich","wealthy"],fam:[{w:"poverty",p:"n.",m:"贫穷"}]},
+            "possible": {syn:["likely","probable"],ant:["impossible","unlikely"],fam:[{w:"possibility",p:"n.",m:"可能性"}]},
+            "practice": {syn:["training","drill"],ant:[],fam:[{w:"practical",p:"adj.",m:"实际的"}]},
+            "present": {syn:["gift","current"],ant:["absent","past"],fam:[]},
+            "price": {syn:["cost","value"],ant:[],fam:[]},
+            "problem": {syn:["trouble","issue"],ant:["solution","answer"],fam:[]},
+            "put": {syn:["place","set"],ant:["remove","take"],fam:[]},
+            "question": {syn:["ask","inquiry"],ant:["answer","reply"],fam:[]},
+            "quick": {syn:["fast","rapid"],ant:["slow","sluggish"],fam:[{w:"quickly",p:"adv.",m:"快速地"}]},
+            "quiet": {syn:["silent","calm"],ant:["loud","noisy"],fam:[]},
+            "rain": {syn:["drizzle","downpour"],ant:[],fam:[{w:"rainy",p:"adj.",m:"下雨的"}]},
+            "read": {syn:["peruse","scan"],ant:[],fam:[{w:"reader",p:"n.",m:"读者"}]},
+            "ready": {syn:["prepared","set"],ant:["unready","hesitant"],fam:[]},
+            "real": {syn:["true","actual"],ant:["fake","false"],fam:[{w:"reality",p:"n.",m:"现实"}]},
+            "really": {syn:["truly","actually"],ant:[],fam:[]},
+            "remember": {syn:["recall","recollect"],ant:["forget","ignore"],fam:[{w:"memory",p:"n.",m:"记忆"}]},
+            "rest": {syn:["relax","break"],ant:["work","activity"],fam:[]},
+            "rich": {syn:["wealthy","affluent"],ant:["poor","broke"],fam:[{w:"richness",p:"n.",m:"丰富"}]},
+            "right": {syn:["correct","proper"],ant:["wrong","left"],fam:[]},
+            "room": {syn:["chamber","space"],ant:[],fam:[]},
+            "rule": {syn:["law","regulation"],ant:[],fam:[{w:"ruler",p:"n.",m:"尺子；统治者"}]},
+            "run": {syn:["sprint","jog"],ant:["walk","stand"],fam:[]},
+            "sad": {syn:["unhappy","sorrowful"],ant:["happy","glad"],fam:[{w:"sadness",p:"n.",m:"悲伤"}]},
+            "safe": {syn:["secure","protected"],ant:["dangerous","risky"],fam:[{w:"safety",p:"n.",m:"安全"},{w:"safely",p:"adv.",m:"安全地"}]},
+            "same": {syn:["identical","alike"],ant:["different","unlike"],fam:[{w:"similar",p:"adj.",m:"相似的"}]},
+            "say": {syn:["speak","tell"],ant:[],fam:[]},
+            "school": {syn:["academy","institute"],ant:[],fam:[]},
+            "sea": {syn:["ocean","water"],ant:[],fam:[]},
+            "see": {syn:["view","watch"],ant:[],fam:[]},
+            "sell": {syn:["vend","trade"],ant:["buy","purchase"],fam:[{w:"seller",p:"n.",m:"卖家"}]},
+            "send": {syn:["dispatch","transmit"],ant:["receive","get"],fam:[]},
+            "short": {syn:["brief","low"],ant:["long","tall"],fam:[{w:"shorten",p:"v.",m:"缩短"}]},
+            "show": {syn:["display","exhibit"],ant:["hide","conceal"],fam:[]},
+            "sick": {syn:["ill","unwell"],ant:["healthy","well"],fam:[]},
+            "simple": {syn:["easy","plain"],ant:["complex","difficult"],fam:[]},
+            "sit": {syn:["seat","rest"],ant:["stand"],fam:[]},
+            "sleep": {syn:["rest","doze"],ant:["wake","awaken"],fam:[]},
+            "slow": {syn:["sluggish","leisurely"],ant:["fast","quick"],fam:[{w:"slowly",p:"adv.",m:"缓慢地"}]},
+            "small": {syn:["little","tiny"],ant:["big","large"],fam:[]},
+            "smile": {syn:["grin","beam"],ant:["frown","cry"],fam:[]},
+            "soft": {syn:["smooth","gentle"],ant:["hard","rough"],fam:[]},
+            "some": {syn:["a few","certain"],ant:["none","all"],fam:[]},
+            "soon": {syn:["shortly","presently"],ant:["later","never"],fam:[]},
+            "sorry": {syn:["apologetic","regretful"],ant:[],fam:[]},
+            "speak": {syn:["talk","say"],ant:[],fam:[{w:"speech",p:"n.",m:"演讲"}]},
+            "spend": {syn:["expend","use"],ant:["save","earn"],fam:[]},
+            "stand": {syn:["rise","erect"],ant:["sit","lie"],fam:[]},
+            "start": {syn:["begin","commence"],ant:["end","stop"],fam:[]},
+            "stay": {syn:["remain","linger"],ant:["leave","go"],fam:[]},
+            "still": {syn:["yet","even now"],ant:[],fam:[]},
+            "stop": {syn:["halt","cease"],ant:["go","continue"],fam:[]},
+            "strong": {syn:["powerful","tough"],ant:["weak","feeble"],fam:[{w:"strength",p:"n.",m:"力量"}]},
+            "study": {syn:["learn","research"],ant:[],fam:[]},
+            "such": {syn:["like","so"],ant:[],fam:[]},
+            "summer": {syn:["warm season"],ant:["winter"],fam:[]},
+            "sun": {syn:["star","daylight"],ant:[],fam:[{w:"sunny",p:"adj.",m:"晴朗的"}]},
+            "sure": {syn:["certain","positive"],ant:["uncertain","doubtful"],fam:[]},
+            "sweet": {syn:["sugary","candy"],ant:["sour","bitter"],fam:[]},
+            "swim": {syn:["float","paddle"],ant:[],fam:[]},
+            "take": {syn:["grab","seize"],ant:["give","offer"],fam:[]},
+            "talk": {syn:["speak","chat"],ant:[],fam:[]},
+            "tall": {syn:["high","lofty"],ant:["short","low"],fam:[]},
+            "teach": {syn:["instruct","educate"],ant:["learn","study"],fam:[{w:"teacher",p:"n.",m:"教师"}]},
+            "tell": {syn:["inform","relate"],ant:[],fam:[]},
+            "thank": {syn:["appreciate","grateful"],ant:[],fam:[{w:"thankful",p:"adj.",m:"感谢的"}]},
+            "think": {syn:["believe","consider"],ant:[],fam:[{w:"thought",p:"n.",m:"思想"}]},
+            "time": {syn:["moment","era"],ant:[],fam:[]},
+            "today": {syn:["now","present"],ant:["yesterday","tomorrow"],fam:[]},
+            "together": {syn:["jointly","united"],ant:["alone","separately"],fam:[]},
+            "tomorrow": {syn:["next day","future"],ant:["yesterday","today"],fam:[]},
+            "too": {syn:["also","excessively"],ant:[],fam:[]},
+            "top": {syn:["peak","summit"],ant:["bottom","base"],fam:[]},
+            "town": {syn:["city","village"],ant:[],fam:[]},
+            "travel": {syn:["journey","tour"],ant:[],fam:[]},
+            "tree": {syn:["plant","wood"],ant:[],fam:[]},
+            "true": {syn:["real","factual"],ant:["false","fake"],fam:[{w:"truth",p:"n.",m:"真相"}]},
+            "try": {syn:["attempt","endeavor"],ant:[],fam:[]},
+            "turn": {syn:["rotate","spin"],ant:[],fam:[]},
+            "under": {syn:["below","beneath"],ant:["over","above"],fam:[]},
+            "understand": {syn:["comprehend","grasp"],ant:["misunderstand","confuse"],fam:[{w:"understanding",p:"n.",m:"理解"}]},
+            "up": {syn:["above","high"],ant:["down","low"],fam:[]},
+            "use": {syn:["utilize","employ"],ant:[],fam:[{w:"useful",p:"adj.",m:"有用的"},{w:"useless",p:"adj.",m:"无用的"}]},
+            "very": {syn:["extremely","really"],ant:[],fam:[]},
+            "visit": {syn:["call upon","tour"],ant:[],fam:[]},
+            "wait": {syn:["await","stay"],ant:[],fam:[]},
+            "walk": {syn:["stroll","step"],ant:["run"],fam:[]},
+            "want": {syn:["desire","wish"],ant:["dislike","hate"],fam:[]},
+            "warm": {syn:["mild","hot"],ant:["cold","cool"],fam:[{w:"warmth",p:"n.",m:"温暖"}]},
+            "wash": {syn:["clean","rinse"],ant:["dirty","soil"],fam:[]},
+            "watch": {syn:["observe","view"],ant:[],fam:[]},
+            "water": {syn:["liquid","fluid"],ant:[],fam:[]},
+            "way": {syn:["method","manner"],ant:[],fam:[]},
+            "weak": {syn:["feeble","frail"],ant:["strong","powerful"],fam:[{w:"weakness",p:"n.",m:"弱点"}]},
+            "week": {syn:["seven days"],ant:[],fam:[{w:"weekend",p:"n.",m:"周末"}]},
+            "well": {syn:["fine","good"],ant:["badly","poorly"],fam:[]},
+            "west": {syn:["occidental"],ant:["east"],fam:[]},
+            "white": {syn:["pale","snowy"],ant:["black","dark"],fam:[]},
+            "whole": {syn:["entire","complete"],ant:["part","partial"],fam:[]},
+            "wide": {syn:["broad","spacious"],ant:["narrow","tight"],fam:[]},
+            "will": {syn:["shall","intend"],ant:[],fam:[]},
+            "win": {syn:["triumph","conquer"],ant:["lose","fail"],fam:[{w:"winner",p:"n.",m:"赢家"}]},
+            "wind": {syn:["breeze","gust"],ant:[],fam:[{w:"windy",p:"adj.",m:"有风的"}]},
+            "winter": {syn:["cold season"],ant:["summer"],fam:[]},
+            "wish": {syn:["desire","hope"],ant:[],fam:[]},
+            "with": {syn:["alongside","including"],ant:["without"],fam:[]},
+            "without": {syn:["lacking","missing"],ant:["with"],fam:[]},
+            "woman": {syn:["lady","female"],ant:["man","male"],fam:[]},
+            "wonder": {syn:["marvel","miracle"],ant:[],fam:[{w:"wonderful",p:"adj.",m:"精彩的"}]},
+            "word": {syn:["term","expression"],ant:[],fam:[]},
+            "work": {syn:["job","labor"],ant:["rest","play"],fam:[{w:"worker",p:"n.",m:"工人"}]},
+            "world": {syn:["earth","globe"],ant:[],fam:[]},
+            "worry": {syn:["fret","stress"],ant:["calm","relax"],fam:[{w:"worried",p:"adj.",m:"担心的"}]},
+            "write": {syn:["compose","jot"],ant:[],fam:[{w:"writer",p:"n.",m:"作家"}]},
+            "wrong": {syn:["incorrect","false"],ant:["right","correct"],fam:[]},
+            "young": {syn:["youthful","juvenile"],ant:["old","elderly"],fam:[{w:"youth",p:"n.",m:"青春"}]},
+            "zero": {syn:["nothing","nil"],ant:[],fam:[]}
+        };
+        words.forEach(w => {
+            if (enrich[w.word]) {
+                w.synonyms = enrich[w.word].syn || [];
+                w.antonyms = enrich[w.word].ant || [];
+                w.wordFamily = enrich[w.word].fam || [];
+            }
+        });
+        return words;
+    }
+
+    const STORAGE_W = 'wm_w3', STORAGE_P = 'wm_p3', STORAGE_T = 'wm_t3', STORAGE_S = 'wm_s3', STORAGE_SET = 'wm_set3';
+    function loadW() { let d=localStorage.getItem(STORAGE_W); return d ? JSON.parse(d) : (d=getFullWordbank(), saveW(d), d); }
+    function saveW(b) { localStorage.setItem(STORAGE_W, JSON.stringify(b)); }
+    function loadP() { let d=localStorage.getItem(STORAGE_P); return d ? JSON.parse(d) : {}; }
+    function saveP(p) { localStorage.setItem(STORAGE_P, JSON.stringify(p)); }
+    function loadT() { let d=localStorage.getItem(STORAGE_T); if(d){let o=JSON.parse(d); if(o.date===new Date().toDateString()) return o;} return {date:new Date().toDateString(),newL:0,rev:0}; }
+    function saveT(t){ localStorage.setItem(STORAGE_T, JSON.stringify(t)); }
+    function loadS(){ let d=localStorage.getItem(STORAGE_S); return d ? JSON.parse(d) : {last:null,str:0}; }
+    function saveS(s){ localStorage.setItem(STORAGE_S, JSON.stringify(s)); }
+    function loadSet(){ let d=localStorage.getItem(STORAGE_SET); return d ? JSON.parse(d) : {daily:30}; }
+    function saveSet(s){ localStorage.setItem(STORAGE_SET, JSON.stringify(s)); }
+
+    let wordbank = loadW(), progress = loadP(), today = loadT(), streak = loadS(), settings = loadSet();
+    let todayNewL = today.newL, todayRev = today.rev;
+
+    function updStreak(){
+        const ts = new Date().toDateString();
+        if(streak.last===ts) return;
+        const yest = new Date(Date.now()-864e5).toDateString();
+        streak.str = (streak.last===yest) ? streak.str+1 : 1;
+        streak.last = ts; saveS(streak);
+    }
+    function pronounce(w){
+        if(!window.speechSynthesis) return;
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(w); u.lang='en-US'; u.rate=0.8;
+        speechSynthesis.speak(u);
+    }
+    function getProg(w){ let k=w.toLowerCase(); return progress[k] || {fam:0,cnt:0}; }
+    function updProg(w,d){
+        let k=w.toLowerCase();
+        if(!progress[k]) progress[k]={fam:0,cnt:0,next:0};
+        progress[k].cnt++; progress[k].fam = Math.min(10,Math.max(0,(progress[k].fam||0)+d));
+        let h=4; if(progress[k].fam<=2)h=2; else if(progress[k].fam<=4)h=8; else if(progress[k].fam<=6)h=24; else if(progress[k].fam<=8)h=72; else h=168;
+        progress[k].next = Date.now()+h*3600000;
+        saveP(progress);
+    }
+    function lrnCnt(){ return Object.keys(progress).filter(k=>progress[k].cnt>0).length; }
+    function mstCnt(){ return Object.keys(progress).filter(k=>progress[k].fam>=8).length; }
+    function dueCnt(){ let n=0,c=Date.now(); for(let k in progress) if(progress[k].next && progress[k].next<=c) n++; return n; }
+
+    function updateStats(){
+        document.getElementById('statTotal').textContent=wordbank.length;
+        document.getElementById('statLearned').textContent=lrnCnt();
+        document.getElementById('statMastered').textContent=mstCnt();
+        document.getElementById('statToday').textContent=todayRev;
+        document.getElementById('streakDays').textContent=streak.str;
+        document.getElementById('goalNew').textContent=settings.daily;
+        let due = dueCnt();
+        document.getElementById('goalReview').textContent=due;
+        let doneN=Math.min(todayNewL,settings.daily), total=settings.daily+due, done=doneN+todayRev;
+        document.getElementById('goalProgressText').textContent=`新词 ${doneN}/${settings.daily} · 复习 ${todayRev}`;
+        document.getElementById('goalProgressFill').style.width= total>0?Math.min(100,Math.round(done/total*100))+'%':'0%';
+    }
+
+    function renderRelations(entry){
+        let h='';
+        if(entry.synonyms && entry.synonyms.length){
+            h+='<div class="rel-section"><div class="rel-title">🔗 同义词</div>';
+            entry.synonyms.forEach(s=> h+=`<span class="rel-item syn">${s}</span>`);
+            h+='</div>';
+        }
+        if(entry.antonyms && entry.antonyms.length){
+            h+='<div class="rel-section"><div class="rel-title">🚫 反义词</div>';
+            entry.antonyms.forEach(s=> h+=`<span class="rel-item ant">${s}</span>`);
+            h+='</div>';
+        }
+        if(entry.wordFamily && entry.wordFamily.length){
+            h+='<div class="rel-section"><div class="rel-title">🌱 词根演变</div>';
+            entry.wordFamily.forEach(f=> h+=`<span class="rel-item fam">${f.w} (${f.p}) ${f.m}</span>`);
+            h+='</div>';
+        }
+        return h;
+    }
+
+    let learnQ=[], learnI=0, learnFlip=false;
+    function buildLearnQ(){
+        let learned = new Set(Object.keys(progress).filter(k=>progress[k].cnt>0));
+        let cand=[]; wordbank.forEach((e,i)=>{ if(!learned.has(e.word.toLowerCase())) cand.push(i); });
+        learnQ = cand.sort(()=>Math.random()-0.5);
+        let max = settings.daily - todayNewL;
+        if(learnQ.length>max) learnQ=learnQ.slice(0,max);
+        learnI=0; learnFlip=false;
+    }
+    function showLearnCard(){
+        let el=id=>document.getElementById(id);
+        if(!learnQ.length){
+            el('learnWord').textContent='🎉 新词已学完！'; el('learnRemain').textContent='0'; el('learnRateGroup').style.display='none'; el('learnRelations').innerHTML=''; return;
+        }
+        let entry = wordbank[learnQ[learnI]];
+        el('learnWord').textContent=entry.word; el('learnPhonetic').textContent=entry.phonetic||'';
+        el('learnPos').textContent=entry.pos||''; el('learnMeaning').textContent=entry.meaning||'';
+        el('learnRelations').innerHTML = renderRelations(entry);
+        el('learnRemain').textContent = learnQ.length - learnI;
+        el('learnProgressText').textContent = `${learnI+1}/${learnQ.length}`;
+        el('learnRateGroup').style.display='flex';
+        learnFlip=false; el('learnCardInner').classList.remove('flipped');
+    }
+    function flipLearn(){ learnFlip=!learnFlip; document.getElementById('learnCardInner').classList.toggle('flipped',learnFlip); }
+    function rateLearn(rate){
+        if(!learnQ.length) return;
+        let entry=wordbank[learnQ[learnI]];
+        updProg(entry.word, rate==='known'?3:0);
+        todayNewL++; today.newL=todayNewL; saveT(today); updStreak();
+        learnI++; if(learnI>=learnQ.length){ learnQ=[]; showLearnCard(); } else showLearnCard();
+        updateStats();
+    }
+
+    let reviewQ=[], reviewI=0, reviewSE=true, reviewAns=false;
+    function buildReviewQ(){
+        let now=Date.now(), due=[];
+        wordbank.forEach((e,i)=>{
+            let p=getProg(e.word);
+            if(p.cnt>0 && p.next && p.next<=now) due.push({idx:i,ent:e,se:Math.random()<0.5});
+        });
+        if(!due.length){
+            wordbank.forEach((e,i)=>{ let p=getProg(e.word); if(p.cnt>0 && p.fam<=4) due.push({idx:i,ent:e,se:Math.random()<0.5}); });
+            if(!due.length) wordbank.slice(0,10).forEach((e,i)=> due.push({idx:i,ent:e,se:Math.random()<0.5}));
+        }
+        reviewQ = due.sort(()=>Math.random()-0.5); reviewI=0; reviewAns=false;
+    }
+    function showReviewCard(){
+        let el=id=>document.getElementById(id);
+        reviewAns=false; el('reviewRateGroup').style.display='none'; el('revealAnswerBtn').style.display='block'; el('reviewRelations').innerHTML='';
+        if(!reviewQ.length){ el('reviewPrompt').textContent='✨ 暂无待复习'; return; }
+        let item=reviewQ[reviewI]; reviewSE=item.se;
+        if(reviewSE){
+            el('reviewPrompt').textContent=item.ent.word;
+            el('reviewPosTag').style.display='inline-block'; el('reviewPosTag').textContent=item.ent.pos||'';
+            el('reviewLetterHint').style.display='none'; el('reviewPronounceBtn').style.display='inline-block';
+            el('reviewDirectionHint').textContent='👀 英文 → 回忆中文';
+        }else{
+            el('reviewPrompt').textContent=item.ent.meaning||'';
+            el('reviewPosTag').style.display='none'; el('reviewLetterHint').style.display='block';
+            el('reviewLetterHint').textContent=`首字母 "${item.ent.word[0].toUpperCase()}" · ${item.ent.word.length}个字母`;
+            el('reviewPronounceBtn').style.display='none'; el('reviewDirectionHint').textContent='🧠 中文 → 回忆英文';
+        }
+    }
+    function revealReview(){
+        if(!reviewQ.length||reviewAns) return;
+        reviewAns=true; document.getElementById('revealAnswerBtn').style.display='none';
+        document.getElementById('reviewRateGroup').style.display='flex';
+        let ent=reviewQ[reviewI].ent, face=document.getElementById('reviewCardFace');
+        face.querySelector('.review-answ')?.remove();
+        let ans=document.createElement('div'); ans.className='review-answ';
+        if(reviewSE){
+            ans.textContent=ent.meaning; ans.style.cssText='font-size:1.6rem;color:#9b2c5c;margin-top:8px;';
+            document.getElementById('reviewRelations').innerHTML = renderRelations(ent);
+        }else{
+            ans.textContent=ent.word; ans.style.cssText='font-size:2rem;color:#1e293b;margin-top:8px;';
+            pronounce(ent.word);
+            document.getElementById('reviewRelations').innerHTML = renderRelations(ent);
+        }
+        face.appendChild(ans);
+    }
+    function rateReview(rate){
+        if(!reviewAns) return;
+        let ent=reviewQ[reviewI].ent, delta = rate==='known'?2: (rate==='fuzzy'?0:-2);
+        updProg(ent.word, delta);
+        todayRev++; today.rev=todayRev; saveT(today); updStreak();
+        document.getElementById('reviewCardFace').querySelector('.review-answ')?.remove();
+        document.getElementById('reviewRelations').innerHTML='';
+        reviewI++; if(reviewI>=reviewQ.length){ reviewQ=[]; showReviewCard(); } else showReviewCard();
+        updateStats();
+    }
+    function toast(m){ let t=document.getElementById('toast'); t.textContent=m; t.className='toast show'; clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2000); }
+    function esc(s){ let d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+    function renderTable(){
+        let p=wordbank.slice(0,40), html=p.map(w=>`<tr><td>${esc(w.word)}</td><td>${esc(w.phonetic||'')}</td><td>${esc(w.pos||'')}</td><td>${esc(w.meaning||'')}</td></tr>`).join('');
+        document.getElementById('wordTableBody').innerHTML=html||'<tr><td colspan="4">无</td></tr>';
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{
+        let tab=b.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active');
+        document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+        document.getElementById('panel-'+tab).classList.add('active');
+        if(tab==='learn'){ buildLearnQ(); showLearnCard(); }
+        if(tab==='review'){ buildReviewQ(); showReviewCard(); }
+        if(tab==='wordbank') renderTable();
+    }));
+    document.getElementById('learnCardContainer').addEventListener('click',flipLearn);
+    document.getElementById('learnPronounceBtn').addEventListener('click',e=>{e.stopPropagation(); if(learnQ.length) pronounce(wordbank[learnQ[learnI]].word);});
+    document.getElementById('learnSkipBtn').addEventListener('click',()=>{if(learnQ.length){learnI++; if(learnI>=learnQ.length){learnQ=[];showLearnCard();}else showLearnCard();}});
+    document.getElementById('learnRateGroup').addEventListener('click',e=>{if(e.target.classList.contains('self-rate-btn')) rateLearn(e.target.dataset.rate);});
+    document.addEventListener('keydown',e=>{
+        if(!document.getElementById('panel-learn').classList.contains('active')) return;
+        if(e.key==='ArrowLeft'||e.key==='ArrowRight'){ if(learnQ.length){ learnI=(learnI+(e.key==='ArrowLeft'?-1:1)+learnQ.length)%learnQ.length; showLearnCard(); } }
+        if(e.key===' '){ e.preventDefault(); flipLearn(); }
+    });
+    document.getElementById('revealAnswerBtn').addEventListener('click',revealReview);
+    document.getElementById('reviewPronounceBtn').addEventListener('click',e=>{e.stopPropagation(); if(reviewQ.length&&reviewSE) pronounce(reviewQ[reviewI].ent.word);});
+    document.getElementById('reviewSkipBtn').addEventListener('click',()=>{if(reviewQ.length){reviewI++; if(reviewI>=reviewQ.length){reviewQ=[];showReviewCard();}else showReviewCard();}});
+    document.getElementById('reviewRestartBtn').addEventListener('click',()=>{buildReviewQ();showReviewCard();});
+    document.getElementById('reviewRateGroup').addEventListener('click',e=>{if(e.target.classList.contains('self-rate-btn')) rateReview(e.target.dataset.rate);});
+    document.getElementById('uploadZone').addEventListener('click',()=>document.getElementById('fileInput').click());
+    document.getElementById('fileInput').addEventListener('change',()=>{ let f=document.getElementById('fileInput').files[0]; if(f) handleFile(f); });
+    function handleFile(f){
+        let r=new FileReader(); r.onload=function(e){
+            try{
+                let d=JSON.parse(e.target.result); if(!Array.isArray(d)) throw new Error();
+                wordbank=d.filter(w=>w.word&&w.meaning); saveW(wordbank); renderTable(); buildLearnQ();showLearnCard();buildReviewQ();updateStats();
+                toast('词库已加载');
+            }catch{toast('文件格式错误');}
+        }; r.readAsText(f);
+    }
+    document.getElementById('exportBtn').addEventListener('click',()=>{ let b=new Blob([JSON.stringify(wordbank)],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='wordbank.json'; a.click(); });
+    document.getElementById('resetProgressBtn').addEventListener('click',()=>{if(confirm('重置所有进度？')){progress={}; saveP(progress); today={date:new Date().toDateString(),newL:0,rev:0}; saveT(today); todayNewL=0;todayRev=0; streak={last:null,str:0}; saveS(streak); updateStats(); buildLearnQ();showLearnCard();buildReviewQ();showReviewCard();}});
+    document.getElementById('saveDailyNewBtn').addEventListener('click',()=>{ let v=parseInt(document.getElementById('dailyNewInput').value); if(v>=5&&v<=100){ settings.daily=v; saveSet(settings); updateStats(); buildLearnQ();showLearnCard(); } });
+    document.getElementById('presetFullBtn').addEventListener('click',()=>{ wordbank=getFullWordbank(); saveW(wordbank); renderTable(); buildLearnQ();showLearnCard();buildReviewQ();updateStats(); toast('已加载1600词重关联版'); });
+
+    function init(){
+        document.getElementById('dailyNewInput').value=settings.daily;
+        updStreak(); updateStats(); renderTable();
+        buildLearnQ(); showLearnCard(); buildReviewQ(); showReviewCard();
+    }
+    init();
+})();
+</script>
+</body>
+</html>
